@@ -45,7 +45,7 @@ namespace GetImage
                         string fileName = Guid.NewGuid().ToString() + "_" + "image.jpg";
                         await blobContainerClient.UploadBlobAsync(fileName, new BinaryData(msToByte(ms)));
 
-                        return new FileContentResult(ImageToByteArray(img), "image/jpeg");
+                        return new FileContentResult(imageToByteArray(img), "image/jpeg");
                     }
                 }
             }
@@ -62,7 +62,7 @@ namespace GetImage
             }
         }
 
-        private static byte[] ImageToByteArray(Image image)
+        private static byte[] imageToByteArray(Image image)
         {
             ImageConverter converter = new ImageConverter();
             return (byte[])converter.ConvertTo(image, typeof(byte[]));

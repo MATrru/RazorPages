@@ -35,8 +35,6 @@ namespace RazorPages.Pages
 
             if (imageFile != null)
             {
-                var byteImg = msToByte(imageFile.OpenReadStream());
-
                 using (var myClient = new HttpClient())
                 using (var myRequest = new HttpRequestMessage(HttpMethod.Post, url))
                 using (var httpContent = new StreamContent(imageFile.OpenReadStream()))

@@ -37,8 +37,9 @@ namespace GetImage
                         var font = new Font(FontFamily.GenericSansSerif, 38, FontStyle.Bold, GraphicsUnit.Pixel);
                         var color = Color.FromArgb(128, 255, 255, 255);
                         var brush = new SolidBrush(color);
-                        var point = new Point((int)(img.Width * 0.3), img.Height / 2);
-                        graphic.DrawString(text, font, brush, point);
+                        var point = new Point(0, (int)(img.Height / 2));
+                        //graphic.DrawString(text, font, brush, point);
+                        graphic.DrawString(text, font, brush, new RectangleF(point, new SizeF(img.Width, img.Height)));
                         img.Save(ms, ImageFormat.Jpeg);
 
                         ms.Position = 0;

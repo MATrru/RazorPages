@@ -31,8 +31,8 @@ namespace RazorPages.Pages
 
             IFormFile imageFile = Request.Form.Files["Image"];
             string text = Request.Form["text"];
-            var url = configuration["AddImageUrl"] + "?text=" + text;
-            
+            var url = String.Format("{0}{1}{2}", configuration["AddImageUrl"], "?text=", text);
+
             if (imageFile != null)
             {
                 var byteImg = msToByte(imageFile.OpenReadStream());

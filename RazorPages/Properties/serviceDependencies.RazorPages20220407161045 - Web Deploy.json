@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "storage1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/razorpagesstorage",
+      "type": "storage.azure",
+      "connectionId": "razorpagesstorage"
+    }
+  }
+}

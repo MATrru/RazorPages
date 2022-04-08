@@ -1,0 +1,37 @@
+﻿@page
+@model RazorPages.Pages.UploadImageModel
+@{
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Upload</title>
+</head>
+<body>  
+    <div class = "text-center">
+      <form action="" method="post" enctype="multipart/form-data">
+        <fieldset>
+          <legend> Upload Image </legend>
+          <input type="file" name="Image" title=" "/>
+          <br/>
+          <br/>
+          <input type="text" name="text" placeholder="text in image"/>
+          <input type="submit" value="Show" />
+          <br/>
+        </fieldset>
+    </form>
+        
+    @{
+        string imgBase64 = ViewData["imgBase64"] as string;
+        if (imgBase64 != "") 
+        {
+             <img src="@imgBase64" alt="image"/>
+             <br/>
+             <a download = "image.jpeg" href="@imgBase64">Download image</a>
+        }    
+     }
+    </div>
+</body>
+</html>

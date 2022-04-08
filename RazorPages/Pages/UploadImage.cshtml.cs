@@ -31,7 +31,7 @@ namespace RazorPages.Pages
 
             IFormFile imageFile = Request.Form.Files["Image"];
             string text = Request.Form["text"];
-            var url = String.Format("{0}{1}{2}", configuration["AddImageUrl"], "?text=", text);
+            var url = String.Format("{0}?text={1}", configuration["AddImageUrl"], text);
 
             if (imageFile != null)
             {

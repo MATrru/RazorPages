@@ -25,7 +25,8 @@ namespace GetImage
             blobContainerClient.CreateIfNotExists();
 
             MemoryStream ms = new MemoryStream();
-            req.Body.CopyToAsync(ms);            
+            req.Body.CopyToAsync(ms);
+            ms.Position = 0;
             string text = req.Query["text"];
 
             {

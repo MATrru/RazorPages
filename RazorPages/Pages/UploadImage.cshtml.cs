@@ -33,24 +33,21 @@ namespace RazorPages.Pages
             string text = Request.Form["text"];
             var url = String.Format("{0}&text={1}", configuration["AddImageUrl"], text);
 
-            var ms = new MemoryStream();
-            imageFile.CopyTo(ms);
-            ms.Seek(0, SeekOrigin.Begin);
-
             if (imageFile != null)
             {
+                var ms = new MemoryStream();
+                imageFile.CopyTo(ms);
+                ms.Seek(0, SeekOrigin.Begin);
+
                 using (var myClient = new HttpClient())
                 using (var myRequest = new HttpRequestMessage(HttpMethod.Post, url))
                 using (var httpContent = new StreamContent(ms))
                 {
                     myRequest.Content = httpContent;
 
-                    //using (var newResponse = await myClient.SendAsync(myRequest, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                     using (var newResponse = await myClient.PostAsync(url, httpContent))
                     {
-                        Stream stream = newResponse.Content.ReadAsStream();
-                        var fileBytes = msToByte(stream);
-                        var base64 = Convert.ToBase64String(fileBytes);
+                        var base64 = Convert.ToBase64String(await newResponse.Content.ReadAsByteArrayAsync());
                         ViewData["imgBase64"] = String.Format("data:image/jpeg;base64,{0}", base64);
                         return Page();
                     }

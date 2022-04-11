@@ -25,12 +25,11 @@ namespace GetImage
             blobContainerClient.CreateIfNotExists();
 
             MemoryStream ms = new MemoryStream();
-            req.Body.CopyToAsync(ms);
-            ms.Position = 0;
             string text = req.Query["text"];
 
             {
-                using (var img = Image.FromStream(ms))
+                using (var img = Image.FromStream(req.Body))
+                //using (var img = Image.FromStream(ms))
                 {
                     using (var graphic = Graphics.FromImage(img))
                     {
@@ -47,7 +46,7 @@ namespace GetImage
                         string fileName = Guid.NewGuid().ToString() + "_" + "image.jpg";
                         await blobContainerClient.UploadBlobAsync(fileName, new BinaryData(msToByte(ms)));
 
-                        return new FileContentResult(imageToByteArray(img), "image/jpeg");
+                        return new FileContentResult(ms.ToArray(), "image/jpeg");
                     }
                 }
             }
@@ -62,12 +61,6 @@ namespace GetImage
                 input.CopyTo(ms);
                 return ms.ToArray();
             }
-        }
-
-        private static byte[] imageToByteArray(Image image)
-        {
-            ImageConverter converter = new ImageConverter();
-            return (byte[])converter.ConvertTo(image, typeof(byte[]));
         }
     }
 }
